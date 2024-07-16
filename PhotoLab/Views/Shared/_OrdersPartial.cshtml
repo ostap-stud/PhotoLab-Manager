@@ -1,0 +1,66 @@
+﻿@model IEnumerable<PhotoLab.Models.Order>
+
+<table class="table table-sm table-hover table-bordered m-0">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client_Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service.ServiceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.Worker != null && item.Worker.Equals(User.Identity.Name))
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Client_Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Client_Surname)
+                    </td>
+                    <td>
+                        @(Html.DisplayFor(modelItem => item.Service.ServiceName)) (x@(Html.DisplayFor(modelItem => item.Count)))
+                    </td>
+                    @switch (item.Status)
+                    {
+                        case Status.Success:
+                            <td class="bg-success text-white bg-opacity-75">@Html.DisplayFor(modelItem => item.Status)</td>
+                            break;
+                        case Status.Processing:
+                            <td class="bg-secondary text-white bg-opacity-75">@Html.DisplayFor(modelItem => item.Status)</td>
+                            break;
+                        case Status.Cancelled:
+                            <td class="bg-danger text-white bg-opacity-75">@Html.DisplayFor(modelItem => item.Status)</td>
+                            break;
+                        default:
+                            <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                            break;
+                    }
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Total)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Date)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

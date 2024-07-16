@@ -1,0 +1,33 @@
+﻿@model PhotoLab.Models.Service
+
+@{
+    ViewData["Title"] = "Деталі";
+}
+
+<h1>Деталі послуги</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ServiceName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ServiceName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10" style="white-space: pre-line;">@Html.DisplayFor(model => model.Description)</dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.ServiceId">Правка</a> |
+    <a asp-action="Index">Назад до списку</a>
+</div>

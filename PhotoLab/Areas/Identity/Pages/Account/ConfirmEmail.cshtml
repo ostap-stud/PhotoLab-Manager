@@ -1,0 +1,9 @@
+﻿@page
+@model ConfirmEmailModel
+@{
+    ViewData["Title"] = "Підтверджено";
+}
+
+<h1 class="mb-3">@ViewData["Title"]</h1>
+<partial name="_StatusMessage" model="Model.StatusMessage" />
+<a asp-area="Identity" asp-page="/Account/Login" class="btn btn-success opacity-75">Увійти</a>

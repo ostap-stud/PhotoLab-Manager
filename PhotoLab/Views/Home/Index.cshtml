@@ -1,0 +1,36 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using PhotoLab.Areas.Identity.Data
+
+@inject SignInManager<PhotoLabUser> SignInManager
+@inject UserManager<PhotoLabUser> UserManager
+
+@{
+    ViewData["Title"] = "Головна";
+}
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div class="d-flex flex-column align-items-center">
+        <div class="col-8 mb-3 text-center">
+            <h1 class="display-2">Ласкаво просимо, @((await UserManager.GetUserAsync(User)).Name)!</h1>
+            <h1 class="display-6">Ваші завдання</h1>
+        </div>
+        <div class="col-8">
+            <div class="d-flex justify-content-between">
+                <a asp-controller="Orders" asp-action="Index">Керування замовленнями</a>
+                <p>Завершено успішно: @(ViewData["SuccessOrders"])/@(ViewData["AllOrders"])</p>
+            </div>
+            <div class="table-responsive card">
+                <partial name="_OrdersPartial" />
+            </div>
+        </div>
+    </div>
+    
+}
+else
+{
+    <div class="text-center">
+        <h1 class="display-2">Ласкаво просимо до PhotoLab Manager</h1>
+        <h1 class="display-6">Будь ласка, <a asp-area="Identity" asp-page="/Account/Login">увійдіть</a> або пройдіть <a asp-area="Identity" asp-page="/Account/Register">реєстрацію</a><br/> для отримання доступу</h1>
+    </div>
+}

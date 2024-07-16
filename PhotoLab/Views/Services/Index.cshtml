@@ -1,0 +1,51 @@
+﻿@model IEnumerable<PhotoLab.Models.Service>
+
+@{
+    ViewData["Title"] = "Послуги";
+}
+
+<h1>Список послуг</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Створити нову</a>
+</p>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+@foreach (var item in Model) {
+    <div class="col">
+        <div class="card card-service">
+            <div class="row g-0">
+                <div class="col-md-4">
+                    <a asp-action="Details" asp-route-id="@item.ServiceId">
+                        @* @if(item.ImageURI != null)
+                        {
+                            <img src="@item.ImageURI" onerror="this.src = '/img/placeholder.jpg'" class="card-image img-fluid rounded-start" alt="Service Image Cap">
+                        }
+                        else
+                        {
+                            <img src="/img/placeholder.jpg" class="card-image img-fluid rounded-start" alt="Service Image Cap">
+                        } *@
+                            <img src="@item.ImageURI" onerror="this.src = '/img/placeholder.jpg'" class="img-sm card-image img-fluid rounded-top" alt="Service Image Cap">
+                            <img src="@item.ImageURI" onerror="this.src = '/img/placeholder.jpg'" class="img-md card-image img-fluid rounded-start" alt="Service Image Cap">
+                    </a>
+                </div>
+                <div class="col-md-8">
+                        <div class="card-body h-100 d-flex flex-column justify-content-center">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.ServiceName)</h5>
+                        <p class="card-text card-description">@Html.DisplayFor(modelItem => item.Description)</p>
+                        <div class="d-flex justify-content-between mb-3">
+                            <a asp-action="Details" asp-route-id="@item.ServiceId" class="text-muted">Check Details</a>
+                            <p class="card-text"><small class="text-muted">₴@Html.DisplayFor(modelItem => item.Price)</small></p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Edit" asp-route-id="@item.ServiceId" class="btn btn-secondary">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@item.ServiceId" class="btn btn-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+</div>
+

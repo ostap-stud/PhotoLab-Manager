@@ -1,0 +1,56 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.card-service {
+    transition: all 0.3s ease-in-out;
+}
+
+.card-service:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+}
+
+.card-service .card-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-description, .card-title, td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 300px;
+}
+
+@media(max-width: 768px){
+    .img-md {
+        display: none;
+    }
+}
+
+@media(min-width: 768px) {
+    .img-sm {
+        display: none;
+    }
+}

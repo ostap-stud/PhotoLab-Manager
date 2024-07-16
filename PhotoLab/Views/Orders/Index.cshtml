@@ -1,0 +1,91 @@
+﻿@model IEnumerable<PhotoLab.Models.Order>
+
+@{
+    ViewData["Title"] = "Замовлення";
+}
+
+<h1>Список замовлень</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Створити нове</a>
+</p>
+<div class="table-responsive-xxl">
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Client_Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Client_Surname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service.ServiceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Service.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Total)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Worker)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client_Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Client_Surname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Service.ServiceName)
+            </td>
+            <td>
+                @(Html.DisplayFor(modelItem => item.Service.Price)) (x@(Html.DisplayFor(modelItem => item.Count)))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Total)
+            </td>
+                @switch (item.Status)
+                {
+                    case Status.Success:
+                        <td class="bg-success text-white bg-opacity-75">@Html.DisplayFor(modelItem => item.Status)</td>
+                        break;
+                    case Status.Processing:
+                        <td class="bg-secondary text-white bg-opacity-75">@Html.DisplayFor(modelItem => item.Status)</td>
+                        break;
+                    case Status.Cancelled:
+                        <td class="bg-danger text-white bg-opacity-75">@Html.DisplayFor(modelItem => item.Status)</td>
+                        break;
+                    default:
+                        <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                        break;
+                }
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Worker)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrderId">Правка</a> |
+                <a asp-action="Details" asp-route-id="@item.OrderId">Деталі</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderId">Видалити</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>

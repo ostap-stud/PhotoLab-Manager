@@ -1,0 +1,94 @@
+﻿@model PhotoLab.Models.Order
+
+@{
+    ViewData["Title"] = "Правка";
+}
+
+<h1>Редагування замовлення</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="OrderId" />
+            <div class="form-group mb-2">
+                <label asp-for="Client_Name" class="control-label"></label>
+                <input asp-for="Client_Name" class="form-control" />
+                <span asp-validation-for="Client_Name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Client_Surname" class="control-label"></label>
+                <input asp-for="Client_Surname" class="form-control" />
+                <span asp-validation-for="Client_Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Service.ServiceName" class="control-label"></label>
+                <select asp-for="ServiceId" id="select-service" class="form-select" asp-items="ViewBag.ServiceId"></select>
+                <span asp-validation-for="ServiceId" class="text-danger"></span>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="form-group">
+                        <label class="control-label">Price</label>
+                        @Html.DropDownListFor(o => o.ServiceId, ViewBag.ServicePrice as SelectList, new {@class = "form-control",  @disabled = "disabled"})
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Count" class="control-label"></label>
+                        <input asp-for="Count" class="form-control" />
+                        <span asp-validation-for="Count" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label"></label>
+                        @Html.DropDownListFor(model => model.Status, new SelectList(Enum.GetValues(typeof(PhotoLab.Models.Status))), new {@class = "form-select"})
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label asp-for="Date" class="control-label"></label>
+                        <input asp-for="Date" class="form-control" />
+                        <span asp-validation-for="Date" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Worker" class="control-label"></label>
+                <input asp-for="Worker" class="form-control" disabled/>
+                <span asp-validation-for="Worker" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3 mb-2">
+                <input type="submit" value="Зберегти" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Назад до списку</a>
+</div>
+
+<script type="text/javascript">
+
+    let selector = document.getElementById("select-service");
+    let result = document.getElementById("ServiceId");
+
+    // when client clicked on select element
+    selector.addEventListener("click", () => {
+        // if default value is changed
+        selector.addEventListener("change", () => {
+            // if value switched by client
+            result.value = selector.value
+        });
+    });
+</script>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
